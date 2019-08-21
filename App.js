@@ -7,9 +7,10 @@ import HomeScreen from './src/screens/HomeScreen';
 import OtherScreen from './src/screens/OtherScreen';
 import LoginScreen from './src/screens/LoginScreen';
 import AuthLoadingScreen from './src/screens/AuthLoadingScreen';
+import CreateNewAccountScreen from './src/screens/CreateNewAccountScreen';
 
 
-const AppStack = createStackNavigator({ Home: HomeScreen, Other: OtherScreen });
+const AppStack = createStackNavigator({ Home: HomeScreen, Other: OtherScreen, CreateNewAccount: CreateNewAccountScreen });
 const AuthStack = createStackNavigator({ Login: LoginScreen });
 
 const AppNavigator = createAppContainer(createSwitchNavigator(
