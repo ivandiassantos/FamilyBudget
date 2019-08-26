@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Button, StatusBar, View, StyleSheet, AsyncStorage } from 'react-native';
+import {View, Button, StatusBar, AsyncStorage} from 'react-native';
 
 export default class OtherScreen extends Component {
     static navigationOptions = {
@@ -8,7 +8,7 @@ export default class OtherScreen extends Component {
   
     render() {
       return (
-        <View style={styles.container}>
+        <View>
           <Button title="I'm done, sign me out" onPress={this._signOutAsync} />
           <StatusBar barStyle="default" />
         </View>
@@ -20,11 +20,3 @@ export default class OtherScreen extends Component {
       this.props.navigation.navigate('Auth');
     };
   }
-
-  const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-});
