@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { Text, Container, Content, Form, Item, Label, Input, Button } from 'native-base';
+import InputSecret from '../misc/components/InputSecret';
+import InputText from '../misc/components/InputText';
 
 export default class CreateNewAccountScreen extends Component {
     static navigationOptions = {
-        title: 'Family Budget - Cadastrar',
+        header: null,
     };
 
     constructor() {
@@ -23,30 +25,38 @@ export default class CreateNewAccountScreen extends Component {
     render() {
         return (
             <Container>
-                <Content>
+                <Content contentContainerStyle={{ justifyContent: 'center', flex: 1 }}>
                     <Form>
-                        <Item floatingLabel>
-                            <Label>Nome</Label>
-                            <Input onChangeText={(name) => this.setState({ name })}
-                                value={this.state.name} maxLength={200}/>
-                        </Item>
-                        <Item floatingLabel>
-                            <Label>E-mail</Label>
-                            <Input onChangeText={(email) => this.setState({email})} 
-                                   value={this.state.email} maxLength={200}/>
-                        </Item>
-                        <Item floatingLabel last>
-                            <Label>Senha</Label>
-                            <Input secureTextEntry onChangeText={(password) => this.setState({password})} 
-                                   value={this.state.password} maxLength={12}/>
-                        </Item>
-                        <Item floatingLabel last>
-                            <Label>Confirmação da Senha</Label>
-                            <Input secureTextEntry onChangeText={(passwordConfirmation) => this.setState({passwordConfirmation})} 
-                                   value={this.state.passwordConfirmation} maxLength={12}/>
-                        </Item>
+                        <InputText required={true}
+                            label="Nome"
+                            value={this.state.name}
+                            maxLength={200}
+                            onChangeText={(name) => this.setState({ name })}
+                            styles={{ marginLeft: 5, marginRight: 5 }}
+                        />
+                        <InputText required={true}
+                            label="E-Mail"
+                            value={this.state.email}
+                            maxLength={200}
+                            onChangeText={(email) => this.setState({ email })}
+                            styles={{ marginLeft: 5, marginRight: 5, marginTop: 15 }}
+                        />
+                        <InputSecret required={true}
+                            label="Senha"
+                            value={this.state.password}
+                            maxLength={200}
+                            onChangeText={(password) => this.setState({ password })}
+                            styles={{ marginLeft: 5, marginRight: 5, marginTop: 15  }}
+                        />
+                        <InputSecret required={true}
+                            label="Repita a Senha"
+                            value={this.state.passwordConfirmation}
+                            maxLength={200}
+                            onChangeText={(passwordConfirmation) => this.setState({ passwordConfirmation })}
+                            styles={{ marginLeft: 5, marginRight: 5, marginTop: 15  }}
+                        />
                     </Form>
-                    <Button block style={{ margin: 15, marginTop: 10 }} onPress={this.handleSubmit}>
+                    <Button block style={{ margin: 5, marginTop: 30 }} onPress={this.handleSubmit}>
                         <Text>CADASTRAR</Text>
                     </Button>
                 </Content>

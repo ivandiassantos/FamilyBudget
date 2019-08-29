@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { AsyncStorage, StyleSheet } from 'react-native';
-import { Container, Content, Form, Item, Label, Input, Button, Text, Icon } from 'native-base';
+import { Container, Content, Form, Item, Label, Input, Button, Text, Icon, View } from 'native-base';
 import Utils from '../misc/Utils';
+import InputText from '../misc/components/InputText';
+import InputSecret from '../misc/components/InputSecret';
 
 export default class LoginScreen extends Component {
   static navigationOptions = {
-    title: 'Family Budget - Login',
+    header: null,
   };
 
   constructor() {
@@ -19,32 +21,37 @@ export default class LoginScreen extends Component {
   render() {
     return (
       <Container>
-        <Content>
+        <Content contentContainerStyle={{ justifyContent: 'center', flex: 1 }}>
           <Form>
-            <Item floatingLabel style={{ margin: 15 }} error={Utils.isEmpty(this.state.email)}>
-              <Label>E-mail</Label>
-              <Input value={this.state.email} onChangeText={(email) => this.setState({ email })} maxLength={200} />
-            </Item>
-            {Utils.isEmpty(this.state.email) ? <Text style={{ margin: 15 }}>Campo obrigatório</Text> : <Text />}
-            <Item floatingLabel style={{ margin: 15 }} last error={Utils.isEmpty(this.state.password)}>
-              <Label>Senha</Label>
-              <Input secureTextEntry value={this.state.password} onChangeText={(password) => this.setState({ password })} />
-            </Item>
-            {Utils.isEmpty(this.state.email) ? <Text style={{ margin: 15 }}>Campo obrigatório</Text> : <Text />}
+            <InputText required={true}
+              label="E-Mail"
+              value={this.state.email}
+              maxLength={200}
+              onChangeText={(email) => this.setState({ email })} 
+              styles={{marginLeft: 5, marginRight: 5}} 
+              type="email"
+            />
+            <InputSecret required={true}
+              label="Senha"
+              value={this.state.password}
+              maxLength={200}
+              onChangeText={(password) => this.setState({ password })}
+              styles={{marginLeft: 5, marginRight: 5, marginTop: 15}}
+            />
           </Form>
-          <Button block style={{ margin: 15, marginTop: 10 }}>
+          <Button block style={{ margin: 5, marginTop: 30 }}>
             <Text>ENTRAR</Text>
           </Button>
-          <Button block style={{ margin: 15, marginTop: 10 }}>
+          <Button block style={{ margin: 5, marginTop: 10 }}>
             <Icon name="logo-facebook" />
             <Text>LOGIN COM FACEBOOK</Text>
           </Button>
-          <Button block style={{ margin: 15, marginTop: 10 }}>
+          <Button block style={{ margin: 5, marginTop: 10 }}>
             <Icon name="logo-google" />
             <Text>LOGIN COM GOOGLE</Text>
           </Button>
           <Button block light onPress={this.openFormNewAccount}>
-            <Text> Não tem uma conta? adastre-se aqui </Text>
+            <Text> Não tem uma conta? Cadastre-se aqui </Text>
           </Button>
         </Content>
       </Container>
