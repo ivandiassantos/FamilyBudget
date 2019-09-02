@@ -64,7 +64,6 @@ export default class LoginScreen extends Component {
   };
 
   openFormNewAccount = () => {
-    console.log('Teste');
     this.props.navigation.navigate('CreateNewAccount');
   }
 }

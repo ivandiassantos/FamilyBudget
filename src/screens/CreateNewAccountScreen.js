@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Text, Container, Content, Form, Item, Label, Input, Button } from 'native-base';
+import { Text, Container, Content, Form, Button, Toast } from 'native-base';
 import InputSecret from '../misc/components/InputSecret';
 import InputText from '../misc/components/InputText';
+import Utils from '../misc/Utils';
 
 export default class CreateNewAccountScreen extends Component {
     static navigationOptions = {
@@ -14,12 +15,31 @@ export default class CreateNewAccountScreen extends Component {
             name: '',
             email: '',
             password: '',
-            passwordConfirmation: ''
+            passwordConfirmation: '',
         };
     }
 
-    handleSubmit = () => {
-        console.log('State: ', this.state);
+    handleSubmit = (event) => {
+        if (!this.isFormValid()) {
+            this.showToast();
+
+        }
+    };
+
+    showToast = () => {
+        Toast.show({
+            text: "Wrong password!",
+            buttonText: "Okay",
+            duration: 3000
+        });
+    };
+
+    isFormValid = () => {
+        return !Utils.isEmpty(this.state.name)
+            && !Utils.isEmpty(this.state.email)
+            && Utils.isEmailValid(this.state.email)
+            && !Utils.isEmpty(this.state.password)
+            && !Utils.isEmpty(this.state.passwordConfirmation);
     };
 
     render() {
@@ -31,6 +51,7 @@ export default class CreateNewAccountScreen extends Component {
                             label="Nome"
                             value={this.state.name}
                             maxLength={200}
+                            name="name"
                             onChangeText={(name) => this.setState({ name })}
                             styles={{ marginLeft: 5, marginRight: 5 }}
                         />
@@ -38,6 +59,7 @@ export default class CreateNewAccountScreen extends Component {
                             label="E-Mail"
                             value={this.state.email}
                             maxLength={200}
+                            type="email"
                             onChangeText={(email) => this.setState({ email })}
                             styles={{ marginLeft: 5, marginRight: 5, marginTop: 15 }}
                         />
@@ -46,14 +68,14 @@ export default class CreateNewAccountScreen extends Component {
                             value={this.state.password}
                             maxLength={200}
                             onChangeText={(password) => this.setState({ password })}
-                            styles={{ marginLeft: 5, marginRight: 5, marginTop: 15  }}
+                            styles={{ marginLeft: 5, marginRight: 5, marginTop: 15 }}
                         />
                         <InputSecret required={true}
                             label="Repita a Senha"
                             value={this.state.passwordConfirmation}
                             maxLength={200}
                             onChangeText={(passwordConfirmation) => this.setState({ passwordConfirmation })}
-                            styles={{ marginLeft: 5, marginRight: 5, marginTop: 15  }}
+                            styles={{ marginLeft: 5, marginRight: 5, marginTop: 15 }}
                         />
                     </Form>
                     <Button block style={{ margin: 5, marginTop: 30 }} onPress={this.handleSubmit}>
