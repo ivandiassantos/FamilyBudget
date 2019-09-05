@@ -8,10 +8,17 @@ import OtherScreen from './src/screens/OtherScreen';
 import LoginScreen from './src/screens/LoginScreen';
 import AuthLoadingScreen from './src/screens/AuthLoadingScreen';
 import CreateNewAccountScreen from './src/screens/CreateNewAccountScreen';
+import { Root } from 'native-base';
+import {Provider} from 'react-redux';
+import {createStore,applyMiddleware,combineReducers} from 'redux';
+import thunkMiddleware from 'redux-thunk';
 
 
 const AppStack = createStackNavigator({ Home: HomeScreen, Other: OtherScreen, CreateNewAccount: CreateNewAccountScreen });
 const AuthStack = createStackNavigator({ Login: LoginScreen });
+
+const reducers = combineReducers({timeline,notificacao});
+const store = createStore(reducers,applyMiddleware(thunkMiddleware));
 
 const AppNavigator = createAppContainer(createSwitchNavigator(
   {
@@ -36,7 +43,13 @@ export default class App extends Component {
       return <AppLoading />;
     }
 
-    return (<AppNavigator />);
+    return (
+      <Provider store={store}>
+        <Root>
+          <AppNavigator />
+        </Root>
+      </Provider>
+    );
   }
 
   async componentDidMount() {
