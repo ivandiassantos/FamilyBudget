@@ -1,8 +1,15 @@
+<<<<<<< HEAD
 import { Toast } from "native-base";
 
 register = (data) => {
     return dispatch => {
         fetch('http://192.168.1.157:8080/api/v1/auth/register',{
+=======
+register = (data) => {
+    return dispatch => {
+        console.log(data);
+        fetch('http://192.168.1.157:8080/family-budget/api/v1/auth/register',{
+>>>>>>> 80ea3bc7be412c1973e7fb2ec3f6896a15f829db
                 method: 'POST',
                 body: JSON.stringify(data),
                 headers: new Headers({
@@ -12,6 +19,7 @@ register = (data) => {
         )
         .then(response => {
             if (response.ok) {
+<<<<<<< HEAD
                 Toast.show({
                     text: "Informações cadastradas com sucesso. Informe os dados cadastrados para realizar o login.",
                     buttonText: "OK",
@@ -38,6 +46,22 @@ register = (data) => {
             throw error;
         });
         
+=======
+                return response.json();
+            } else {
+                console.log(response);
+                throw new Error('Erro ao cadastrar');
+
+            }
+        })
+        .then(response => {
+            dispatch({ type: 'REGISTER' });
+            return response;
+        })
+        .catch(function (error) {
+            throw error;
+        });
+>>>>>>> 80ea3bc7be412c1973e7fb2ec3f6896a15f829db
     }
 }
 
