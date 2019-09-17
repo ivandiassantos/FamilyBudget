@@ -3,8 +3,19 @@ import { Text, Container, Content, Form, Button, Toast } from 'native-base';
 import InputSecret from '../misc/components/InputSecret';
 import InputText from '../misc/components/InputText';
 import Utils from '../misc/Utils';
+import {connect} from "react-redux";
+import AccountActions from './AccountActions';
 
-export default class CreateNewAccountScreen extends Component {
+const mapReduxStateToProps = reduxState => ({
+    registerSuccess: reduxState.accountReducer.registerSuccess,
+});
+
+const mapReduxDispatchToProps = {
+    register: AccountActions.register,
+};
+
+export default connect(mapReduxStateToProps, mapReduxDispatchToProps)(
+class CreateNewAccountScreen extends Component {
     static navigationOptions = {
         header: null,
     };
@@ -22,8 +33,14 @@ export default class CreateNewAccountScreen extends Component {
     handleSubmit = (event) => {
         if (!this.isFormValid()) {
             this.showToast();
-
+            return false;
         }
+        this.props.register({
+            name: this.state.name,
+            email: this.state.email,
+            password: this.state.password,
+            passwordConfirmation: this.state.passwordConfirmation,
+        });
     };
 
     showToast = () => {
@@ -82,7 +99,8 @@ export default class CreateNewAccountScreen extends Component {
                         <Text>CADASTRAR</Text>
                     </Button>
                 </Content>
+                {this.props.registerSuccess === true ? this.props.navigation.navigate('Auth'): this.props.navigation.navigate('CreateNewAccount')}
             </Container>
         );
     }
-}
+});

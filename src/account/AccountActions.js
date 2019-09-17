@@ -1,0 +1,46 @@
+import { Toast } from "native-base";
+
+register = (data) => {
+    return dispatch => {
+        fetch('http://192.168.1.157:8080/api/v1/auth/register',{
+                method: 'POST',
+                body: JSON.stringify(data),
+                headers: new Headers({
+                    'Content-Type': 'application/json'
+                })
+            }
+        )
+        .then(response => {
+            if (response.ok) {
+                Toast.show({
+                    text: "Informações cadastradas com sucesso. Informe os dados cadastrados para realizar o login.",
+                    buttonText: "OK",
+                    duration: 3000
+                });
+
+                return dispatch({ type: 'REGISTER' });
+            } else {
+                console.log(response);
+                Toast.show({
+                    text: "Wrong password!",
+                    buttonText: "Okay",
+                    duration: 3000
+                });
+
+            }
+        })
+        .catch(function (error) {
+            Toast.show({
+                text: "Não foi possível realizar o cadastro.",
+                buttonText: "OK",
+                duration: 3000
+            });
+            throw error;
+        });
+        
+    }
+}
+
+export default {
+    register,
+}
