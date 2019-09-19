@@ -1,8 +1,8 @@
-<<<<<<< HEAD
-import {REGISTER} from "../misc/ReduxActionsTypes"
+import {REGISTER, AUTHENTICATE} from "../misc/ReduxActionsTypes"
 
 const defaultState = {
     registerSuccess: false,
+    loginSuccess: false,
 };
 
 export default(state = defaultState, action) =>{
@@ -12,12 +12,11 @@ export default(state = defaultState, action) =>{
                 ...state,
                 registerSuccess: true,
             }
-=======
-const defaultState = {};
-
-export default(state = defaultState, action) =>{
-    switch(action.type){
->>>>>>> 80ea3bc7be412c1973e7fb2ec3f6896a15f829db
+        case AUTHENTICATE:
+            return {
+                ...state,
+                loginSuccess: true
+            }
         default:
             return state;
     }
