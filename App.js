@@ -12,14 +12,12 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import CreateNewAccountScreen from './src/account/CreateNewAccountScreen';
-import accountReducer from "./src/account/AccountReducer";
+import AccountReducer from "./src/account/AccountReducer";
+import ReduxStore from './src/misc/ReduxStore';
 
 
 const AppStack = createStackNavigator({ Home: HomeScreen, Other: OtherScreen, CreateNewAccount: CreateNewAccountScreen });
 const AuthStack = createStackNavigator({ Login: LoginScreen });
-
-const reducers = combineReducers({accountReducer});
-const store = createStore(reducers, applyMiddleware(thunkMiddleware));
 
 const AppNavigator = createAppContainer(createSwitchNavigator(
   {
@@ -38,6 +36,7 @@ export default class App extends Component {
     this.state = {
       isReady: false,
     };
+    ReduxStore.registerReducer("accountReducer", AccountReducer);
   }
   render() {
     if (!this.state.isReady) {
@@ -45,7 +44,7 @@ export default class App extends Component {
     }
 
     return (
-      <Provider store={store}>
+      <Provider store={ReduxStore.store}>
         <Root>
           <AppNavigator />
         </Root>

@@ -15,7 +15,7 @@ export default(state = defaultState, action) =>{
         case AUTHENTICATE:
             return {
                 ...state,
-                loginSuccess: true
+                loginSuccess: true,
             }
         default:
             return state;

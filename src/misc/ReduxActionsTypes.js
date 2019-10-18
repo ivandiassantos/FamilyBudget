@@ -1,2 +1,5 @@
+export const ASYNC_END = "ASYNC_END";
+export const ASYNC_START = "ASYNC_START";
+export const CLEAR_REDUCER_INFO = "CLEAR_REDUCER_INFO";
 export const REGISTER = "REGISTER";
 export const AUTHENTICATE = "AUTHENTICATE";

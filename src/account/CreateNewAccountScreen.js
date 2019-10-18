@@ -20,8 +20,9 @@ class CreateNewAccountScreen extends Component {
         header: null,
     };
 
-    constructor() {
-        super();
+    constructor(props) {
+        console.log('Call constructor');
+        super(props);
         this.state = {
             name: '',
             email: '',
@@ -99,8 +100,17 @@ class CreateNewAccountScreen extends Component {
                         <Text>CADASTRAR</Text>
                     </Button>
                 </Content>
-                {this.props.registerSuccess === true ? this.props.navigation.navigate('Auth'): this.props.navigation.navigate('CreateNewAccount')}
             </Container>
         );
+    }
+
+    componentDidMount(){
+        
+    }
+
+    componentDidUpdate(){
+        if(this.props.registerSuccess){
+            this.props.navigation.navigate('Auth');
+        }
     }
 });

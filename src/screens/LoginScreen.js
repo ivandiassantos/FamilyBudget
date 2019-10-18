@@ -5,6 +5,8 @@ import InputText from '../misc/components/InputText';
 import InputSecret from '../misc/components/InputSecret';
 import { connect } from "react-redux";
 import AccountActions from '../account/AccountActions';
+import ReduxUtils from '../misc/ReduxUtils';
+import Utils from '../misc/Utils';
 
 const mapReduxStateToProps = reduxState => ({
   loginSuccess: reduxState.accountReducer.loginSuccess,
@@ -40,7 +42,7 @@ export default connect(mapReduxStateToProps, mapReduxDispatchToProps)(
         <Container>
           <Content contentContainerStyle={{ justifyContent: 'center', flex: 1 }}>
             <Form>
-              <InputText required={true}
+              <InputText showRequiredMessage={Utils.isEmpty(this.state.email)}
                 label="E-Mail"
                 value={this.state.email}
                 maxLength={200}
@@ -48,7 +50,7 @@ export default connect(mapReduxStateToProps, mapReduxDispatchToProps)(
                 styles={{ marginLeft: 5, marginRight: 5 }}
                 type="email"
               />
-              <InputSecret required={true}
+              <InputSecret showRequiredMessage={Utils.isEmpty(this.state.password)}
                 label="Senha"
                 value={this.state.password}
                 maxLength={200}
@@ -82,6 +84,11 @@ export default connect(mapReduxStateToProps, mapReduxDispatchToProps)(
     };
 
     openFormNewAccount = () => {
+
       this.props.navigation.navigate('CreateNewAccount');
+    }
+
+    componentDidMount(){
+      ReduxUtils.clearReducerData("accountReducer", "registerSuccess", false);
     }
   });
