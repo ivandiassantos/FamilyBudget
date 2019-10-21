@@ -52,7 +52,9 @@ authenticate = (data) => {
             }
         )
         .then(response => {
+            console.log(response);
             if (response.ok) {
+                console.log(response);
                 return response.json();
             } else {
                 Toast.show({

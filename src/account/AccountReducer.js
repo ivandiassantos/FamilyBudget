@@ -3,6 +3,7 @@ import {REGISTER, AUTHENTICATE} from "../misc/ReduxActionsTypes"
 const defaultState = {
     registerSuccess: false,
     loginSuccess: false,
+    loggedin: false,
 };
 
 export default(state = defaultState, action) =>{

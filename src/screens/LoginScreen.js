@@ -73,7 +73,6 @@ export default connect(mapReduxStateToProps, mapReduxDispatchToProps)(
               <Text> Não tem uma conta? Cadastre-se aqui </Text>
             </Button>
           </Content>
-          {this.props.loginSuccess === true ? this.props.navigation.navigate('Home'): this.props.navigation.navigate('Login')}
         </Container>
       );
     }
@@ -88,7 +87,10 @@ export default connect(mapReduxStateToProps, mapReduxDispatchToProps)(
       this.props.navigation.navigate('CreateNewAccount');
     }
 
-    componentDidMount(){
+    componentDidMount() {
       ReduxUtils.clearReducerData("accountReducer", "registerSuccess", false);
+      if (this.props.loginSuccess === true) {
+        this.props.navigation.navigate('Home')
+      }
     }
   });
